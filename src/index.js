@@ -1,6 +1,6 @@
 export default {
   mounted() {
-    this.observer = new IntersectionObserver(([entry]) => {
+    this.visibilityChangedObserver = new IntersectionObserver(([entry]) => {
       const { visibilityChanged } = this.$options
       if ((typeof visibilityChanged).toLowerCase() !== 'function') {
         return
@@ -8,9 +8,9 @@ export default {
       const visible = entry.intersectionRatio > 0
       visibilityChanged.bind(this)(visible)
     })
-    this.observer.observe(this.$el)
+    this.visibilityChangedObserver.observe(this.$el)
   },
   beforeDestroy() {
-    this.observer.disconnect()
+    this.visibilityChangedObserver.disconnect()
   }
 }
